@@ -15,7 +15,7 @@
 (defn App []
   (let [classes (styling/use-styles)]
     #jsx [:div {:className (:main classes)}
-          [:div {:className "header"} "#Cherry_CLJS HN Reader [top 50 stories]"]
+          [:div {:className "header"} "#ClavaScript HN Reader [top 50 stories]"]
           [:div {:className "items"}
            [BrowserRouter
             [Routes

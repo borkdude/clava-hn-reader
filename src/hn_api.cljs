@@ -7,8 +7,7 @@
   ^:async
   (fn [cbl]
     (let [resp (js/await (js/fetch (str base-url uri)))
-          json (js/await (.json resp))
-          data (js->clj json :keywordize-keys true)]
+          data (js/await (.json resp))]
       (cbl data))))
 
 (defn item-fetcher

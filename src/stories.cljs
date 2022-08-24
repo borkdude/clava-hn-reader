@@ -4,10 +4,11 @@
    ["./styling" :as styling]
    ["./hn_api" :as hn]
    ["./story" :as Story])
-  (:require-macros ["./macros.mjs" :refer [fx]]))
+  (:require-macros [macros :refer [fx]]))
 
 (defn stories-reducer
   [state [type data]]
+  (prn :type type :data data)
   (case type
     :reset data
     :story (assoc state (:id data) data)
@@ -19,7 +20,8 @@
         [stories dispatch] (useReducer stories-reducer {})]
 
     (fx (let [fetcher (hn/fetcher "/topstories.json")]
-          (fetcher (fn [xs] (set-top-50 (take 50 xs))))))
+          (fetcher (fn [xs]
+                     (set-top-50 (.slice xs 0 50) #_(take 50 xs))))))
 
     (fx (do (dispatch [:reset (->> top-50
                                    (map (fn [id] {id nil}))
@@ -31,4 +33,4 @@
 
     (->> top-50
          (map (fn [id] [id (get stories id)]))
-         (map (partial Story/render-story classes)))))
+         (map #(Story/render-story classes %)))))

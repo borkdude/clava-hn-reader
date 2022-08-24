@@ -4,9 +4,7 @@
 
 (defn create-styles
   [style-map]
-  (let [use-styles (jss/createUseStyles (clj->js style-map))]
-    (fn []
-      (js->clj (use-styles) :keywordize-keys true))))
+  (jss/createUseStyles style-map))
 
 (def bg-color "rgb(246, 246, 239)")
 (def dark-bg (-> bg-color color (.darken 0.1) .hex))

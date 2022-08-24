@@ -1,6 +1,4 @@
-(ns macros
-  (:require
-   ["react" :as React]))
+(ns macros)
 
 (defmacro fx
   "Convenient wrapper arount react/useEffect"
@@ -9,10 +7,10 @@
      (fn []
        ~body
        js/undefined)
-     #js []))
+     []))
   ([body & watches]
    `(React/useEffect
      (fn []
        ~body
        js/undefined)
-     #js [~@watches])))
+     [~@watches])))

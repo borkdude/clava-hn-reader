@@ -10,6 +10,6 @@
              (when
               (and (#{:write :write|chmod} type)
                    (str/ends-with? path ".cljs"))
-               (shell {:continue true} "bun run" "cherry" "compile" path)))
+               (shell {:continue true} "bun run" "clava" "compile" path)))
            {:recursive true})
     @(promise)))

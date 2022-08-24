@@ -4,7 +4,7 @@
    ["react-router-dom" :refer [Link useParams]]
    ["./styling" :as styling]
    ["./hn_api" :as hn])
-  (:require-macros ["./macros.mjs" :refer [fx]]))
+  (:require-macros [macros :refer [fx]]))
 
 (defn url-link
   [story]
