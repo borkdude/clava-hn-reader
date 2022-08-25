@@ -44,7 +44,7 @@
 
 (defn scroll-to
   [element]
-  (.scrollIntoView element (clj->js {:behaviour "smooth"})))
+  (.scrollIntoView element {:behaviour "smooth"}))
 
 (defn local-link
   [item-id label]
@@ -102,14 +102,14 @@
                           (if hidden? (str "[" subs-count " more]") "[-]")]]]]
                       [:div {:id kids-id}
                        [:div {:dangerouslySetInnerHTML
-                              (clj->js {:__html (or text "Loading...")})}]
-                       (when-let [kids (seq (:kids comment))]
+                              {:__html (or text "Loading...")}}]
+                       #_(when-let [kids (seq (:kids comment))]
                          (render-comments comments kids))]])]))))
 
 (defn render-comments
   [comments ids]
-  #jsx [:div (map (partial -render-comments comments)
-                  (->> (flatten [nil ids nil])
+  #jsx [:div (map #(-render-comments comments %)
+                  (->> ids #_(cons nil ids ) #_(flatten [nil ids nil])
                        (partition 3 1)))])
 
 (defn comments-reducer
@@ -123,7 +123,7 @@
   (when-let [comment-ids (seq (:kids comment))]
     (doseq [comment-id comment-ids]
       ((hn/item-fetcher comment-id)
-       (partial add-comment dispatch)))))
+       #(add-comment dispatch %)))))
 
 (defn Comments []
   (let [classes (styling/use-styles)
