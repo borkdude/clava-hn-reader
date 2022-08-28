@@ -8,7 +8,6 @@
 
 (defn stories-reducer
   [state [type data]]
-  (prn :type type :data data)
   (case type
     :reset data
     :story (assoc state (:id data) data)
